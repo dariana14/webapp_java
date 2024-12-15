@@ -4,5 +4,5 @@ hsql database
 
 
 ```bash
-> gradlew. apprun
+> ./gradlew appRun
 ```
