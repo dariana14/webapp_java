@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=2, shrink-to-fit=no">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title></title>
+    <link href="https://unpkg.com/bootstrap@4.1.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          crossorigin="anonymous">
+    <style>
+
+        .ng-cloak { display: none }
+
+        .container {
+            margin-top: 1rem;
+            max-width: 40rem;
+        }
+
+        .table {
+            margin-top: 2rem;
+        }
+
+        .table td:nth-child(3) {
+            width: 5rem;
+        }
+
+    </style>
+
+</head>
+
+<body class="bg-light" class="ng-cloak" ng-app="app" ng-controller="OrderCtrl as vm">
+
+<div class="container">
+
+    <div class="alert alert-danger" role="alert" ng-if="vm.errors.length">
+        <div ng-repeat="error in vm.errors track by $index">
+            {{ error }}
+        </div>
+    </div>
+
+    <form>
+        <div class="form-group">
+            <label for="itemName">item name</label>
+            <input type="text"
+                   ng-model="vm.newOrderRow.itemName"
+                   id="itemName" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="quantity">quantity</label>
+            <input type="text"
+                   ng-model="vm.newOrderRow.quantity"
+                   id="quantity" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="price">price</label>
+            <input type="text"
+                   ng-model="vm.newOrderRow.price"
+                   id="price" class="form-control">
+        </div>
+
+        <button type="submit"
+                ng-click="vm.addOrderRow()"
+                class="btn btn-primary">Add</button>
+
+    </form>
+
+    <form>
+        <div class="form-group">
+            <label for="orderNumber">Order number</label>
+            <input type="text"
+                   ng-model="vm.newOrder.orderNumber"
+                   id="orderNumber" class="form-control">
+        </div>
+
+        <button type="submit"
+                ng-click="vm.insertNew()"
+                class="btn btn-primary">Add</button>
+
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Item name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="orderRow in vm.newOrderRows">
+            <td>{{ orderRow.itemName }}</td>
+            <td>{{ orderRow.quantity }}</td>
+            <td>{{ orderRow.price }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Order number</th>
+            <th scope="col">Item Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat-start="order in vm.orders">
+            <td>{{ order.orderNumber }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><button
+                    ng-click="vm.deleteOrder(order.id)"
+                    class="btn btn-danger">Delete</button></td>
+        </tr>
+        <tr ng-repeat="orderRow in order.orderRows" class="table-secondary">
+            <td></td>
+            <td>{{ orderRow.itemName }}</td>
+            <td>{{ orderRow.quantity }}</td>
+            <td>{{ orderRow.price | currency }}</td>
+            <td></td>
+        </tr>
+        <tr ng-repeat-end></tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="app/app.js"></script>
+<script src="app/http.srv.js"></script>
+<script src="app/message.srv.js"></script>
+<script src="app/order.ctrl.js"></script>
+
+
+</html>

@@ -1,1 +1,8 @@
-# webapp-java-
+# README
+
+hsql database
+
+
+```bash
+> gradlew. apprun
+```
